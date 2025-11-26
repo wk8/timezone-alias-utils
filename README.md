@@ -18,7 +18,7 @@ Then there are several "flavors" that you can use in your Dockerfile, that have 
 
 Most node docker images come with their own version of the ICU DB baked in. We provide a shim that's auto-loaded at run time: just add
 ```dockerfile
-COPY --from=wk88/timezone-alias-utils:wkpo-node /tz/generate_tz_shim.sh /tmp/generate_tz_shim.sh
+COPY --from=wk88/timezone-alias-utils:5845b3f2a719-node /tz/generate_tz_shim.sh /tmp/generate_tz_shim.sh
 RUN /tmp/generate_tz_shim.sh
 ```
 to your dockerfile.
@@ -27,7 +27,7 @@ to your dockerfile.
 
 Same idea: we provide a single POSIX-compliant shell script that will symlink new or deprecated time zones:
 ```dockerfile
-COPY --from=wk88/timezone-alias-utils:wkpo-tzdata /tz/create_tz_symlinks.sh /tmp/create_tz_symlinks.sh
+COPY --from=wk88/timezone-alias-utils:5845b3f2a719-tzdata /tz/create_tz_symlinks.sh /tmp/create_tz_symlinks.sh
 RUN /tmp/create_tz_symlinks.sh
 ```
 
