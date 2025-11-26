@@ -32,10 +32,15 @@ endef
 build:
 	$(call build_images,docker build)
 
+BUILDER_NAME ?= xplat
+COMMA := ,
+
 # multi-arch build + push
 .PHONY: push
 push:
-	$(call build_images,docker buildx build --platform linux/amd64,linux/arm64 --push)
+	@ docker buildx rm $(BUILDER_NAME) || true
+	@ docker buildx create --use --name $(BUILDER_NAME) || true
+	$(call build_images,docker buildx build --platform linux/amd64$(COMMA)linux/arm64 --push)
 
 activate: venv
 	@ [ -f activate ] || (ln -s venv/bin/activate . && $(MAKE) requirements)
